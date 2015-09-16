@@ -1,0 +1,9 @@
+#!/bin/sh
+set -e
+
+rm -f *.pbm
+rm -f *.mov
+make
+./plt
+ffmpeg -framerate 20 -i plt_pbm_%05d.pbm -c:v qtrle -pix_fmt rgb24 out.mov 
+mpv out.mov

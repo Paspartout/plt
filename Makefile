@@ -1,12 +1,12 @@
 include config.mk
 
-SRC    = gof.c
+SRC    = plt.c
 OBJ    = ${SRC:.c=.o}
 
-all: options gof
+all: options plt
 
 options:
-	@echo gof build options:
+	@echo plt build options:
 	@echo "CFLAGS   = ${CFLAGS}"
 	@echo "LDFLAGS  = ${LDFLAGS}"
 	@echo "CC       = ${CC}"
@@ -17,31 +17,34 @@ options:
 
 ${OBJ}: config.mk
 
-gof: ${OBJ}
+plt: ${OBJ}
 	@echo LD $@
 	@${CC} -o $@ ${OBJ} ${LDFLAGS}
 
+pbm: plt
+	./plt > /tmp/o.pbm
+
 clean:
 	@echo cleaning
-	@rm -f gof ${OBJ} ${LIBOBJ} gof-${VERSION}.tar.gz
+	@rm -f plt ${OBJ} ${LIBOBJ} plt-${VERSION}.tar.gz
 	@rm -f *.pbm
 
 dist: clean
 	@echo creating dist tarball
-	@mkdir -p gof-${VERSION}
-	@cp -R LICENSE Makefile config.mk ${SRC} gof-${VERSION}
-	@tar -cf gof-${VERSION}.tar gof-${VERSION}
-	@gzip gof-${VERSION}.tar
-	@rm -rf gof-${VERSION}
+	@mkdir -p plt-${VERSION}
+	@cp -R LICENSE Makefile config.mk ${SRC} plt-${VERSION}
+	@tar -cf plt-${VERSION}.tar plt-${VERSION}
+	@gzip plt-${VERSION}.tar
+	@rm -rf plt-${VERSION}
 
 install: all
 	@echo installing executable file to ${DESTDIR}${PREFIX}/bin
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@cp -f gof ${DESTDIR}${PREFIX}/bin
-	@chmod 755 ${DESTDIR}${PREFIX}/bin/gof
+	@cp -f plt ${DESTDIR}${PREFIX}/bin
+	@chmod 755 ${DESTDIR}${PREFIX}/bin/plt
 
 uninstall:
 	@echo removing executable file from ${DESTDIR}${PREFIX}/bin
-	@rm -f ${DESTDIR}${PREFIX}/bin/gof
+	@rm -f ${DESTDIR}${PREFIX}/bin/plt
 
 .PHONY: all options clean dist install uninstall
