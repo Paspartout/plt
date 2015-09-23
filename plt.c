@@ -123,10 +123,10 @@ draw_tan(char **grid, int w, int h, double scale, double offset)
 
 int
 main(void) {
-	int width = 640;
-	int height = 480;
+	int width = 2560;
+	int height = 1440;
 	int i;
-	int frames = 500;
+	int frames = 200;
 	char fpath[100];
 	char **grid;
 
@@ -148,10 +148,10 @@ main(void) {
 		draw_cos(grid, width, height, scale, offset2);
 		draw_sin(grid, width, height, scale, offset3);
 		draw_cos(grid, width, height, scale, offset4);
-		offset += 0.1;
-		offset2 += 0.12;
+		offset += 0.09;
+		offset2 += 0.11;
 		offset3 += 0.13;
-		offset4 += 0.15;
+		offset4 += 0.16;
 		
 		pbmgrid(grid, width, height, pbmf);
 		fclose(pbmf);
